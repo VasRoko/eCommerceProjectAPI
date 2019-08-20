@@ -5,7 +5,8 @@ namespace OnlineStore.Core.Entities
 {
     public class User : BaseEntity
     {
-        public string Type { get; private set; }
-        public string Name { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public string Email { get; set; }
     }
 }
