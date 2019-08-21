@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OnlineStore.Infrastructure
+namespace OnlineStore.Application
 {
     public class Class1
     {

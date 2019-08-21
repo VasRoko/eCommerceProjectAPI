@@ -17,7 +17,7 @@ namespace OnlineStore.Core.Entities
         {
             Items.Remove(item);
             Sum();
-;       }
+        }
 
         private void Sum()
         {
