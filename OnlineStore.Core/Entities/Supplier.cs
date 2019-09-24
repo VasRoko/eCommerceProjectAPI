@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OnlineStore.Application
+namespace OnlineStore.Domain.Entities
 {
-    class Class1
+    class Supplier
     {
     }
 }
