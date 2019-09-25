@@ -7,27 +7,21 @@ namespace OnlineStore.Domain.Entities
 {
     public class Customer : BaseEntity 
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string ContactNumber { get; set; }
-        public BillingAddress customerBillingAddress { get; set; }
-        public ShippingAddress shippingAddress { get; set; }
-    }
-
-    public class BillingAddress : BaseEntity 
-    {
-        public Guid CustomerId { get; set; }
-        public Customer Customer { get; set; }
-        public string AddressLine1 { get; set; }
+        public Customer()
+        {
+            Orders = new HashSet<Order>();
+        }
+        public string ContactName { get; set; }
+        public string ContactTitle { get; set; }
+        public string Address { get; set; }
         public string City { get; set; }
+        public string Region { get; set; }
         public string PostCode { get; set; }
+        public string Country { get; set; }
+        public string Phone { get; set; }
+        public ICollection<Order> Orders { get; private set; }
 
     }
 
-    public class ShippingAddress : BaseEntity
-    {
-        public Guid CustomerId { get; set; }
-        public Customer Customer { get; set; }
-    }
 
 }

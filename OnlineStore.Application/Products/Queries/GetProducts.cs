@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OnlineStore.Application.Products.Queries
 {
-    public class GetAllProducts
+    public class GetProducts
     {
         public class Query : IRequest<List<Product>>
         {
@@ -16,9 +16,9 @@ namespace OnlineStore.Application.Products.Queries
 
         public class Handler : IRequestHandler<Query, List<Product>>
         {
-            private readonly DataContext _context;
+            private readonly ProductsDbContext _context;
 
-            public Handler(DataContext context)
+            public Handler(ProductsDbContext context)
             {
                 _context = context;
             }

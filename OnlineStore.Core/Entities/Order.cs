@@ -7,17 +7,23 @@ namespace OnlineStore.Domain.Entities
 {
     public class Order : BaseEntity
     {
-        public Order()
-        {
-
-        }
-
-        public int orderNumber { get; set; }
+        public string OrderStatus { get; set; }
+        public DateTime? OrderDate { get; set; }
         public Guid CustomerId { get; set; }
-        public Guid SupplierId { get; set; }
-        public Guid ShipperId { get; set; }
-        public DateTime OrderPlaced { get; set; } = DateTime.Now;
-        public bool OrderPaid { get; set; }
-        public ICollection<Product> Products { get; private set; }
+        public Customer Customer { get; set; }
+        public OrderDetails OrderDetails { get; set; }
+    }
+
+    public class OrderDetails : BaseEntity
+    {
+        public Guid ProductId { get; set; }
+        public Product Product { get; set; }
+        public short Quantity { get; set; }
+        public string ShipName { get; set; }
+        public string ShipAddress { get; set; }
+        public string ShipCity { get; set; }
+        public string ShipRegion { get; set; }
+        public string ShipPostCode { get; set; }
+        public string ShipCountry { get; set; }
     }
 }

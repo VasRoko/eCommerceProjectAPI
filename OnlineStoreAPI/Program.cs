@@ -23,8 +23,8 @@ namespace OnlineStoreAPI
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<DataContext>();
-                    Seed.SeedData(context);
+                    var context = services.GetRequiredService<ProductsDbContext>();
+                   // Seed.SeedProducts(context);
                 }
                 catch (Exception ex)
                 {

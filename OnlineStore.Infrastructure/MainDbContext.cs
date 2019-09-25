@@ -5,8 +5,9 @@ namespace OnlineStore.Persistance
 {
     public class MainDbContext : DbContext
     {
-        public MainDbContext(DbContextOptions options) : base(options)
+        public MainDbContext(DbContextOptions<MainDbContext> options) : base(options)
         { }
 
+        
     }
 }

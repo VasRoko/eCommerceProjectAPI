@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using System;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-
+using System.Threading;
 using OnlineStore.Core.Entities;
 using OnlineStore.Application.Products.Queries;
 
@@ -20,9 +21,15 @@ namespace OnlineStore.Web.Controllers.API
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetAll()
+        public async Task<ActionResult<List<Product>>> Get(CancellationToken ct)
         {
-            return await _mediator.Send(new GetAllProducts.Query());
+            return await _mediator.Send(new GetProducts.Query(), ct);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Product>> GetProduct(Guid id)
+        {
+            return await _mediator.Send(new GetProductDetails.Query{Id = id});
         }
     }
 }

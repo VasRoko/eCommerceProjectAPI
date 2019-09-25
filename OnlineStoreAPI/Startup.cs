@@ -50,7 +50,7 @@ namespace OnlineStoreAPI
                 });
             });
 
-            services.AddMediatR(typeof(GetAllProducts.Handler).Assembly);
+            services.AddMediatR(typeof(GetProducts.Handler).Assembly);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
