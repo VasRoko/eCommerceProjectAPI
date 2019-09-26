@@ -8,4 +8,9 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineStore.Core\OnlineStore.Domain.csproj" />
+    <ProjectReference Include="..\OnlineStore.Infrastructure\OnlineStore.Persistance.csproj" />
+  </ItemGroup>
+
 </Project>

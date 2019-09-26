@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using OnlineStore.Core.SharedKernel;
 
 namespace OnlineStore.Core.Entities
@@ -8,33 +6,33 @@ namespace OnlineStore.Core.Entities
     public class Product : BaseEntity
     {
         public string Title { get; set; }
-        public DateTime DateAdded { get; set; }
-        public Size? Size { get; set; }
-        public string Tag { get; set; }
-        public string QuantityPerUnit { get; set; }
-        public decimal? UnitPrice { get; set; }
-        public short? UnitsInStock { get; set; }
-        public bool Discontinued { get; set; }
-        public string PhotoUrl { get; set; }
-        public Guid? SupplierId { get; set; }
-        public Guid? CategoryId { get; set; }
+        public string Excerpt { get; set; }
+        public double Price { get; set; }
+        public string Description { get; set; }
+        public Guid CategoryId { get; set; }
         public Category Category { get; set; }
-        public ICollection<Photo> Photos { get; set; }
-        public void SetDateAdded()
-        {
-            DateAdded = DateTime.Now;
-        }
+        public ProductDetails ProductDetails { get; set; }
     }
 
-    public enum Size
+    public class ProductDetails : BaseEntity
     {
-        xxs,
-        xs,
-        s,
-        m,
-        l,
-        xl,
-        xxl,
-        xxxl
+        public Guid ProductId { get; set; }
+        public Product Product { get; set; }
+        public string Tags { get; set; }
+        public string Size { get; set; }
+        public string ShippingCodes { get; set; }
+        public int InStock { get; set; }
+        public string PhotoURL { get; set; }
     }
+
+    public class ProductReviews : BaseEntity
+    {
+        public Guid ProductId { get; set; }
+        public Product Product { get; set; }
+        public int Stars { get; set; }
+        public string Review { get; set; }
+
+    }
+
+
 }

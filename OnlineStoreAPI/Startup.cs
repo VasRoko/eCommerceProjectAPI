@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OnlineStore.Persistance;
+using MediatR;
+using OnlineStore.Application.Products.Queries;
 
 namespace OnlineStoreAPI
 {
@@ -31,12 +32,16 @@ namespace OnlineStoreAPI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<DataContext>(options =>
+            services.AddDbContext<MainDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDbContext<ProductsDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("ProductsDbConnection")));
+
             services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<DataContext>();
+                .AddEntityFrameworkStores<MainDbContext>();
 
             services.AddCors(opts =>
             {
@@ -45,6 +50,7 @@ namespace OnlineStoreAPI
                 });
             });
 
+            services.AddMediatR(typeof(GetProducts.Handler).Assembly);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -55,6 +61,7 @@ namespace OnlineStoreAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                
             }
             else
             {

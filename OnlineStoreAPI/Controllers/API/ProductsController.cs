@@ -1,9 +1,11 @@
-﻿using OnlineStore.Persistance;
+﻿using System;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using OnlineStore.Core.Entities;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading;
+using OnlineStore.Core.Entities;
+using OnlineStore.Application.Products.Queries;
 
 namespace OnlineStore.Web.Controllers.API
 {
@@ -11,23 +13,23 @@ namespace OnlineStore.Web.Controllers.API
     [ApiController]
     public class ProductsController : Controller
     {
-        private readonly DataContext _context;
+        private readonly IMediator _mediator;
 
-        public ProductsController(DataContext context)
+        public ProductsController(IMediator mediator)
         {
-            _context = context;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetAsync()
+        public async Task<ActionResult<List<Product>>> Get(CancellationToken ct)
         {
-            return Ok(await _context.Products.ToListAsync());
+            return await _mediator.Send(new GetProducts.Query(), ct);
         }
 
-        [HttpGet("id")]
-        public async Task<ActionResult<Product>> GetActionAsync(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Product>> GetProduct(Guid id)
         {
-            return Ok(await _context.Products.FindAsync(id));
+            return await _mediator.Send(new GetProductDetails.Query{Id = id});
         }
     }
 }
