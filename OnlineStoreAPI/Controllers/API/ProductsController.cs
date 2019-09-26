@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Threading;
+using OnlineStore.Application.Products.Commands;
 using OnlineStore.Core.Entities;
 using OnlineStore.Application.Products.Queries;
 
@@ -30,6 +31,12 @@ namespace OnlineStore.Web.Controllers.API
         public async Task<ActionResult<Product>> GetProduct(Guid id)
         {
             return await _mediator.Send(new GetProductDetails.Query{Id = id});
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Unit>> Create(CreateProduct.Command command)
+        {
+            return await _mediator.Send(command);
         }
     }
 }
