@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OnlineStore.Persistance.Migrations
 {
-    public partial class ProductsDbInit : Migration
+    public partial class ProductsInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,25 +22,26 @@ namespace OnlineStore.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "ProductItems",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Title = table.Column<string>(nullable: true),
-                    Excerpt = table.Column<string>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: false),
+                    InStock = table.Column<int>(nullable: false),
                     Price = table.Column<double>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<Guid>(nullable: false)
+                    CategoryId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_ProductItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Categories_CategoryId",
+                        name: "FK_ProductItems_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,20 +49,25 @@ namespace OnlineStore.Persistance.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    ProductId = table.Column<Guid>(nullable: false),
-                    Tags = table.Column<string>(nullable: true),
                     Size = table.Column<string>(nullable: true),
-                    ShippingCodes = table.Column<string>(nullable: true),
-                    InStock = table.Column<int>(nullable: false),
-                    PhotoURL = table.Column<string>(nullable: true)
+                    Tags = table.Column<string>(nullable: true),
+                    PhotoURL = table.Column<string>(nullable: true),
+                    ProductId = table.Column<Guid>(nullable: false),
+                    CategoryId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductDetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductDetails_Products_ProductId",
+                        name: "FK_ProductDetails_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProductDetails_ProductItems_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Products",
+                        principalTable: "ProductItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -71,20 +77,24 @@ namespace OnlineStore.Persistance.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    ProductId = table.Column<Guid>(nullable: false),
-                    Stars = table.Column<int>(nullable: false),
-                    Review = table.Column<string>(nullable: true)
+                    Score = table.Column<int>(nullable: false),
+                    Message = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductReviews", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductReviews_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
+                        name: "FK_ProductReviews_ProductItems_Id",
+                        column: x => x.Id,
+                        principalTable: "ProductItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductDetails_CategoryId",
+                table: "ProductDetails",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductDetails_ProductId",
@@ -93,13 +103,8 @@ namespace OnlineStore.Persistance.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductReviews_ProductId",
-                table: "ProductReviews",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_CategoryId",
-                table: "Products",
+                name: "IX_ProductItems_CategoryId",
+                table: "ProductItems",
                 column: "CategoryId");
         }
 
@@ -112,7 +117,7 @@ namespace OnlineStore.Persistance.Migrations
                 name: "ProductReviews");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "ProductItems");
 
             migrationBuilder.DropTable(
                 name: "Categories");

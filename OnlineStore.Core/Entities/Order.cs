@@ -8,7 +8,7 @@ namespace OnlineStore.Domain.Entities
     public class Order : BaseEntity
     {
         public string OrderStatus { get; set; }
-        public DateTime? OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
         public Guid CustomerId { get; set; }
         public Customer Customer { get; set; }
         public OrderDetails OrderDetails { get; set; }
