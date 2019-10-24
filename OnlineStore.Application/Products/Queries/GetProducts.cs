@@ -25,7 +25,7 @@ namespace OnlineStore.Application.Products.Queries
 
             public async Task<List<Product>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.Products.ToListAsync();
+                return await _context.ProductItems.ToListAsync();
             }
         }
     }

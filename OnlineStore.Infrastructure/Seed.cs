@@ -58,43 +58,32 @@ namespace OnlineStore.Persistance
                   Id = new Guid(),  
                   Price = 25,
                   Title = "Brown Brim",
-                  Excerpt = "Small Brown hat",
                   Description = "Some random description",
-                  CategoryId = new Guid("F9AC6598-B60F-4146-F692-08D7410967A5"),
-
                },
 
                new Product {
                   Id = new Guid(),
                   Price = 25,
                   Title = "Blue Beanie",
-                  Excerpt = "Small Blue hat",
                   Description = "Some random description",
-                  CategoryId = new Guid("F9AC6598-B60F-4146-F692-08D7410967A5"),
                },
 
                new Product {
                   Id = new Guid(),
                   Price = 35,
                   Title = "Brown Cowboy",
-                  Excerpt = "Small Brown Cowboy hat",
                   Description = "Some random description",
-                  CategoryId = new Guid("F9AC6598-B60F-4146-F692-08D7410967A5"),
                },
 
                new Product {
                   Id = new Guid(),
                   Price = 25,
                   Title = "Adidas NMD",
-                  Excerpt = "Nice and shiny Adidas NMD",
                   Description = "Some random description",
-                  CategoryId = new Guid("327D1513-2893-4D36-F693-08D7410967A5"),
                },
 
             };
 
-            context.Products.AddRange(products);
-            context.SaveChanges();
         }
 
     }

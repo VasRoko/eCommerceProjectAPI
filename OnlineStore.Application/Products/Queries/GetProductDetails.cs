@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -25,12 +26,12 @@ namespace OnlineStore.Application.Products.Queries
             }
             public async Task<Product> Handle(Query request, CancellationToken cancellationToken)
             {
-                var product = await _context.Products.FindAsync(request.Id);
+                //  var product = await _context.Products.FindAsync(request.Id);
 
-                if (product == null)
-                    throw new NotFoundException(nameof(Product), request.Id);
+                // if (product == null)
+                // throw new NotFoundException(nameof(Product), request.Id);
 
-                return product;
+                return new Product(); // product;
             }
         }
     }

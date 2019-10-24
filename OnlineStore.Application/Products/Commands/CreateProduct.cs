@@ -15,8 +15,8 @@ namespace OnlineStore.Application.Products.Commands
         public class Command : IRequest
         {
             public string Title { get; set; }
-            public string Excerpt { get; set; }
             public double Price { get; set; }
+            public int InStock { get; set; }
             public string Description { get; set; }
             public Guid CategoryId { get; set; }
         }
@@ -35,18 +35,17 @@ namespace OnlineStore.Application.Products.Commands
                 var product = new Product
                 {
                     Id = new Guid(),
-                    Title = request.Title,
-                    Excerpt = request.Excerpt,
                     Date = DateTime.Now,
+                    Title = request.Title,
                     Price = request.Price,
+                    InStock = request.InStock,
                     Description = request.Description,
                 };
 
                 try
                 {
-                    _context.Products.Add(product);
+                    _context.ProductItems.Add(product);
                     await _context.SaveChangesAsync();
-
                     return Unit.Value;
                 }
                 catch (Exception ex)
