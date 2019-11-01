@@ -46,7 +46,7 @@ namespace OnlineStore.Application.Products.Commands
                 } 
                 catch (Exception ex)
                 {
-                    throw new UpdateFailException(nameof(product), product.Id, ex.Message);
+                    throw new UpdateFailureException(nameof(product), product.Id, ex.Message);
                 }             
             }
         }
