@@ -55,8 +55,9 @@ namespace OnlineStore.Persistance
             var products = new List<Product>
             {
                new Product {
-                  Id = new Guid(),  
+                  Id = new Guid(),
                   Price = 25,
+                  InStock = 23,
                   Title = "Brown Brim",
                   Description = "Some random description",
                },
@@ -64,6 +65,7 @@ namespace OnlineStore.Persistance
                new Product {
                   Id = new Guid(),
                   Price = 25,
+                  InStock = 15,
                   Title = "Blue Beanie",
                   Description = "Some random description",
                },
@@ -71,6 +73,7 @@ namespace OnlineStore.Persistance
                new Product {
                   Id = new Guid(),
                   Price = 35,
+                  InStock = 10,
                   Title = "Brown Cowboy",
                   Description = "Some random description",
                },
@@ -78,11 +81,15 @@ namespace OnlineStore.Persistance
                new Product {
                   Id = new Guid(),
                   Price = 25,
+                  InStock = 20,
                   Title = "Adidas NMD",
                   Description = "Some random description",
                },
 
             };
+
+            context.ProductItems.AddRange(products);
+            context.SaveChanges();
 
         }
 

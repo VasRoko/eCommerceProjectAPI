@@ -18,7 +18,6 @@ namespace OnlineStore.Application.Products.Commands
             public double Price { get; set; }
             public int InStock { get; set; }
             public string Description { get; set; }
-            public Guid CategoryId { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -46,11 +45,13 @@ namespace OnlineStore.Application.Products.Commands
                 {
                     _context.ProductItems.Add(product);
                     await _context.SaveChangesAsync();
+
                     return Unit.Value;
+
                 }
                 catch (Exception ex)
                 {
-                    throw new CreateFailureException(nameof(Product), product.Id, ex.StackTrace);
+                    throw new CreateFailureException(nameof(Product), product.Id, ex.Message);
                 }
             }
         }

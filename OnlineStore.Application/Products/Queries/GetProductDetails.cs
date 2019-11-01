@@ -26,12 +26,12 @@ namespace OnlineStore.Application.Products.Queries
             }
             public async Task<Product> Handle(Query request, CancellationToken cancellationToken)
             {
-                //  var product = await _context.Products.FindAsync(request.Id);
+                var product = await _context.ProductItems.FindAsync(request.Id);
 
-                // if (product == null)
-                // throw new NotFoundException(nameof(Product), request.Id);
+                if (product == null)
+                    throw new NotFoundException(nameof(Product), request.Id);
 
-                return new Product(); // product;
+                return product;
             }
         }
     }
