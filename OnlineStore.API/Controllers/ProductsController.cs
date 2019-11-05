@@ -21,7 +21,7 @@ namespace OnlineStore.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> All()
+        public async Task<IEnumerable<Product>> All()
         {
             return await _mediator.Send(new GetProducts.Query());
         }
@@ -50,5 +50,7 @@ namespace OnlineStore.API.Controllers
         {
             return await _mediator.Send(new DeleteProduct.Command { Id = id });
         }
+
+
     }
 }
