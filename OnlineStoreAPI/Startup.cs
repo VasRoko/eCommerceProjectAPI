@@ -36,7 +36,7 @@ namespace OnlineStoreAPI
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDbContext<ProductsDbContext>(options =>
+            services.AddDbContext<ProductsContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("ProductsDbConnection")));
 

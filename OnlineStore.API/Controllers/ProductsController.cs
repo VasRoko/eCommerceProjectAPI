@@ -9,7 +9,7 @@ using System;
 
 namespace OnlineStore.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class ProductsController : Controller
     {
@@ -21,11 +21,18 @@ namespace OnlineStore.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> All()
+        public async Task<IEnumerable<Product>> All()
         {
             return await _mediator.Send(new GetProducts.Query());
         }
 
+        [HttpGet]
+        [Route("category")]
+        public async Task<IEnumerable<Product>> Category([FromQuery]string name )
+        {
+            return await _mediator.Send(new GetProductsByCategory.Query() { CategoryName = name });
+        }
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetDetails(Guid id)
         {
@@ -43,6 +50,12 @@ namespace OnlineStore.API.Controllers
         public async Task<ActionResult<Unit>> Create(CreateProduct.Command command)
         {
             return await _mediator.Send(command);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Unit>> Delete(Guid id)
+        {
+            return await _mediator.Send(new DeleteProduct.Command { Id = id });
         }
     }
 }

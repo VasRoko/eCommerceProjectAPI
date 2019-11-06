@@ -29,9 +29,9 @@ namespace OnlineStore.API
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDbContext<ProductsDbContext>(options =>
+            services.AddDbContext<ProductsContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("ProductsDbConnection")));
+                    Configuration.GetConnectionString("ProductsConnection")));
 
             // services.AddDefaultIdentity<IdentityUser>()
                // .AddEntityFrameworkStores<MainDbContext>();

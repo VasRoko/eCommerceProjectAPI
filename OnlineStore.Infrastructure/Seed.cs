@@ -7,7 +7,7 @@ namespace OnlineStore.Persistance
 {
     public class Seed
     {
-        public static void SeedCategory(ProductsDbContext context)
+        public static void SeedCategory(ProductsContext context)
         {
             if(!context.Categories.Any())
             {
@@ -43,6 +43,12 @@ namespace OnlineStore.Persistance
                         CategoryName = "Trousers",
                         Description = "Our latest your best!",
                     },
+                    new Category
+                    {
+                        Id = new Guid(),
+                        CategoryName = "Other",
+                        Description = "There is a lot more!",
+                    },
                 };
 
                 context.Categories.AddRange(categories);
@@ -50,7 +56,7 @@ namespace OnlineStore.Persistance
             }
         }
 
-        public static void SeedProducts(ProductsDbContext context)
+        public static void SeedProducts(ProductsContext context)
         {
             var products = new List<Product>
             {
@@ -76,6 +82,7 @@ namespace OnlineStore.Persistance
                   InStock = 10,
                   Title = "Brown Cowboy",
                   Description = "Some random description",
+                  CategoryId = new Guid("446C8C6F-ACC0-433B-7FE0-08D762D0420A")
                },
 
                new Product {

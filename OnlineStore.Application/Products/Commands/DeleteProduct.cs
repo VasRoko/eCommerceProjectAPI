@@ -7,15 +7,11 @@ using System.Threading.Tasks;
 
 namespace OnlineStore.Application.Products.Commands
 {
-    public class UpdateProduct
+    public class DeleteProduct 
     {
         public class Command : IRequest
         {
             public Guid Id { get; set; }
-            public string Title { get; set; }
-            public double? Price { get; set; }
-            public int? InStock { get; set; }
-            public string Description { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -36,19 +32,15 @@ namespace OnlineStore.Application.Products.Commands
 
                 try
                 {
-                    product.Title = request.Title ?? product.Title;
-                    product.Price = request.Price ?? product.Price;
-                    product.InStock = request.InStock ?? product.InStock;
-                    product.Description = request.Description ?? product.Description;
-
+                    _context.Remove(product);
                     await _context.SaveChangesAsync();
-                    
+
                     return Unit.Value;
-                } 
+                }
                 catch (Exception ex)
                 {
-                    throw new UpdateFailureException(nameof(product), product.Id, ex.Message);
-                }             
+                    throw new DeleteFailureExeception(nameof(product), product.Id, ex.Message);
+                }
             }
         }
     }

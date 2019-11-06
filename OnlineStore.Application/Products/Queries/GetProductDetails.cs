@@ -18,9 +18,9 @@ namespace OnlineStore.Application.Products.Queries
 
         public class Handler : IRequestHandler<Query, Product>
         {
-            private readonly ProductsDbContext _context;
+            private readonly ProductsContext _context;
 
-            public Handler(ProductsDbContext context)
+            public Handler(ProductsContext context)
             {
                 _context = context;
             }
