@@ -10,6 +10,7 @@ namespace OnlineStore.Core.Entities
         public DateTime Date { get; set; }
         public int InStock { get; set; }
         public double Price { get; set; }
+        public Guid CategoryId { get; set; }
         public string Description { get; set; }
         public ProductDetails ProductDetails { get; set; }
         public ICollection<ProductReview> ProductReviews { get; set; }
@@ -22,7 +23,6 @@ namespace OnlineStore.Core.Entities
         public string PhotoURL { get; set; }
         public Guid ProductId { get; set; }
         public Product Product { get; set; }
-        public Category Category { get; set; }
     }
 
     public class ProductReview : BaseEntity
@@ -31,6 +31,4 @@ namespace OnlineStore.Core.Entities
         public string Message { get; set; }
         public Product Product { get; set; }
     }
-
-
 }

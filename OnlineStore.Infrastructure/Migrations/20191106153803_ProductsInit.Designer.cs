@@ -3,19 +3,21 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineStore.Persistance;
 
 namespace OnlineStore.Persistance.Migrations
 {
-    [DbContext(typeof(ProductsDbContext))]
-    partial class ProductsDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ProductsContext))]
+    [Migration("20191106153803_ProductsInit")]
+    partial class ProductsInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -40,7 +42,7 @@ namespace OnlineStore.Persistance.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("CategoryId");
+                    b.Property<Guid>("CategoryId");
 
                     b.Property<DateTime>("Date");
 
@@ -54,8 +56,6 @@ namespace OnlineStore.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("ProductItems");
                 });
 
@@ -63,8 +63,6 @@ namespace OnlineStore.Persistance.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<Guid?>("CategoryId");
 
                     b.Property<string>("PhotoURL");
 
@@ -75,8 +73,6 @@ namespace OnlineStore.Persistance.Migrations
                     b.Property<string>("Tags");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("ProductId")
                         .IsUnique();
@@ -97,19 +93,8 @@ namespace OnlineStore.Persistance.Migrations
                     b.ToTable("ProductReviews");
                 });
 
-            modelBuilder.Entity("OnlineStore.Core.Entities.Product", b =>
-                {
-                    b.HasOne("OnlineStore.Core.Entities.Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId");
-                });
-
             modelBuilder.Entity("OnlineStore.Core.Entities.ProductDetails", b =>
                 {
-                    b.HasOne("OnlineStore.Core.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
-
                     b.HasOne("OnlineStore.Core.Entities.Product", "Product")
                         .WithOne("ProductDetails")
                         .HasForeignKey("OnlineStore.Core.Entities.ProductDetails", "ProductId")

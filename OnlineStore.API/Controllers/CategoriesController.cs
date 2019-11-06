@@ -10,7 +10,7 @@ using OnlineStore.Application.Products.Categories.Queries;
 namespace OnlineStore.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class CategoriesController : Controller
     {
         private readonly IMediator _mediator;

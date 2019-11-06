@@ -20,9 +20,9 @@ namespace OnlineStore.Application.Products.Commands
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly ProductsDbContext _context;
+            private readonly ProductsContext _context;
 
-            public Handler(ProductsDbContext context)
+            public Handler(ProductsContext context)
             {
                 _context = context;
             }

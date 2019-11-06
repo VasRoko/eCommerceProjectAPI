@@ -30,18 +30,12 @@ namespace OnlineStore.Persistance.Migrations
                     Date = table.Column<DateTime>(nullable: false),
                     InStock = table.Column<int>(nullable: false),
                     Price = table.Column<double>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<Guid>(nullable: true)
+                    CategoryId = table.Column<Guid>(nullable: false),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProductItems_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -52,18 +46,11 @@ namespace OnlineStore.Persistance.Migrations
                     Size = table.Column<string>(nullable: true),
                     Tags = table.Column<string>(nullable: true),
                     PhotoURL = table.Column<string>(nullable: true),
-                    ProductId = table.Column<Guid>(nullable: false),
-                    CategoryId = table.Column<Guid>(nullable: true)
+                    ProductId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductDetails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProductDetails_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ProductDetails_ProductItems_ProductId",
                         column: x => x.ProductId,
@@ -92,24 +79,17 @@ namespace OnlineStore.Persistance.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductDetails_CategoryId",
-                table: "ProductDetails",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ProductDetails_ProductId",
                 table: "ProductDetails",
                 column: "ProductId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductItems_CategoryId",
-                table: "ProductItems",
-                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Categories");
+
             migrationBuilder.DropTable(
                 name: "ProductDetails");
 
@@ -118,9 +98,6 @@ namespace OnlineStore.Persistance.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProductItems");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
         }
     }
 }

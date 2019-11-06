@@ -3,10 +3,10 @@ using OnlineStore.Core.Entities;
 
 namespace OnlineStore.Persistance
 {
-    public class ProductsDbContext : DbContext
+    public class ProductsContext : DbContext
     {
-        public ProductsDbContext(DbContextOptions<ProductsDbContext> options) : base(options)
-        { }
+        public ProductsContext(DbContextOptions<ProductsContext> options) : base(options)
+        {}
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> ProductItems { get; set; }

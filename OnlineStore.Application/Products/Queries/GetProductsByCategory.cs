@@ -5,13 +5,17 @@ using System.Collections.Generic;
 using OnlineStore.Core.Entities;
 using OnlineStore.Persistance;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using OnlineStore.Application.Exceptions;
+using System;
 
 namespace OnlineStore.Application.Products.Queries
 {
-    public class GetProducts
+    public class GetProductsByCategory
     {
         public class Query : IRequest<IEnumerable<Product>>
         {
+            public string CategoryName { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, IEnumerable<Product>>
@@ -25,7 +29,14 @@ namespace OnlineStore.Application.Products.Queries
 
             public async Task<IEnumerable<Product>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.ProductItems.ToListAsync();
+                var category = await _context.Categories.Where(c => c.CategoryName == request.CategoryName).AsNoTracking().FirstOrDefaultAsync();
+
+                if (category == null)
+                    throw new NotFoundException(nameof(Category), category.Id);
+
+                var products = _context.ProductItems.Where(p => p.CategoryId.Equals(category.Id)).AsNoTracking().ToList();
+                
+                return products;
             }
         }
     }
