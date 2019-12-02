@@ -18,7 +18,7 @@ namespace OnlineStore.Core.Domain.Entities
         public ICollection<ProductReview> ProductReviews { get; set; }
         public bool Discontinued { get; private set; }
 
-        public void ProductDiscontinued()
+        public void SetDiscontinued()
         {
             Discontinued = true;
         }

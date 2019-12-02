@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OnlineStore.Persistance.Migrations
 {
-    public partial class ProductsInit : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,9 +12,9 @@ namespace OnlineStore.Persistance.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CategoryName = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    PhotoUrl = table.Column<string>(nullable: true)
+                    ImageUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -28,14 +28,23 @@ namespace OnlineStore.Persistance.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Title = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
-                    InStock = table.Column<int>(nullable: false),
+                    QuantityPerUnit = table.Column<string>(nullable: true),
+                    UnitPrice = table.Column<decimal>(nullable: true),
+                    UnitsInStock = table.Column<short>(nullable: true),
                     Price = table.Column<double>(nullable: false),
                     CategoryId = table.Column<Guid>(nullable: false),
-                    Description = table.Column<string>(nullable: true)
+                    Description = table.Column<string>(nullable: true),
+                    Discontinued = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductItems_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,13 +92,15 @@ namespace OnlineStore.Persistance.Migrations
                 table: "ProductDetails",
                 column: "ProductId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductItems_CategoryId",
+                table: "ProductItems",
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Categories");
-
             migrationBuilder.DropTable(
                 name: "ProductDetails");
 
@@ -98,6 +109,9 @@ namespace OnlineStore.Persistance.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProductItems");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

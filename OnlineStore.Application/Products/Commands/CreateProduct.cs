@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using OnlineStore.Application.Exceptions;
-using OnlineStore.Core.Entities;
+using OnlineStore.Core.Domain.Entities;
 using OnlineStore.Persistance;
 
 namespace OnlineStore.Application.Products.Commands
@@ -37,7 +37,6 @@ namespace OnlineStore.Application.Products.Commands
                     Date = DateTime.Now,
                     Title = request.Title,
                     Price = request.Price,
-                    InStock = request.InStock,
                     Description = request.Description,
                 };
 

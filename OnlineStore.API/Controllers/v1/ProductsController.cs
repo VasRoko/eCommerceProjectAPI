@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using OnlineStore.Core.Entities;
+using OnlineStore.Core.Domain.Entities;
 using System.Collections.Generic;
 using OnlineStore.Application.Products.Queries;
 using OnlineStore.Application.Products.Commands;

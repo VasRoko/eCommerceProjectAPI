@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using OnlineStore.Application.Exceptions;
-using OnlineStore.Core.Entities;
+using OnlineStore.Core.Domain.Entities;
 using OnlineStore.Persistance;
 
 namespace OnlineStore.Application.Products.Queries

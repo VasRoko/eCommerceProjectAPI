@@ -1,13 +1,13 @@
-﻿using MediatR;
+﻿using System;
+using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using OnlineStore.Core.Entities;
 using OnlineStore.Persistance;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using OnlineStore.Core.Domain.Entities;
 using OnlineStore.Application.Exceptions;
-using System;
 
 namespace OnlineStore.Application.Products.Queries
 {
@@ -29,7 +29,7 @@ namespace OnlineStore.Application.Products.Queries
 
             public async Task<IEnumerable<Product>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var category = await _context.Categories.Where(c => c.CategoryName == request.CategoryName).AsNoTracking().FirstOrDefaultAsync();
+                var category = await _context.Categories.Where(c => c.Description == request.CategoryName).AsNoTracking().FirstOrDefaultAsync();
 
                 if (category == null)
                     throw new NotFoundException(nameof(Category), category.Id);

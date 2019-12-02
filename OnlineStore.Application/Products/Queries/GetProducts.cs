@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using OnlineStore.Core.Entities;
 using OnlineStore.Persistance;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using OnlineStore.Core.Domain.Entities;
 
 namespace OnlineStore.Application.Products.Queries
 {
