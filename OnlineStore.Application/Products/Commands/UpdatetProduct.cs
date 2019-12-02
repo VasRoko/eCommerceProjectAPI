@@ -38,7 +38,6 @@ namespace OnlineStore.Application.Products.Commands
                 {
                     product.Title = request.Title ?? product.Title;
                     product.Price = request.Price ?? product.Price;
-                    product.InStock = request.InStock ?? product.InStock;
                     product.Description = request.Description ?? product.Description;
 
                     await _context.SaveChangesAsync();

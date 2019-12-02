@@ -10,8 +10,8 @@ using OnlineStore.Persistance;
 namespace OnlineStore.Persistance.Migrations
 {
     [DbContext(typeof(ProductsContext))]
-    [Migration("20191106153803_ProductsInit")]
-    partial class ProductsInit
+    [Migration("20191202164841_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,23 +21,23 @@ namespace OnlineStore.Persistance.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("OnlineStore.Core.Entities.Category", b =>
+            modelBuilder.Entity("OnlineStore.Core.Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CategoryName");
-
                     b.Property<string>("Description");
 
-                    b.Property<string>("PhotoUrl");
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("OnlineStore.Core.Entities.Product", b =>
+            modelBuilder.Entity("OnlineStore.Core.Domain.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -48,18 +48,26 @@ namespace OnlineStore.Persistance.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int>("InStock");
+                    b.Property<bool>("Discontinued");
 
                     b.Property<double>("Price");
 
+                    b.Property<string>("QuantityPerUnit");
+
                     b.Property<string>("Title");
 
+                    b.Property<decimal?>("UnitPrice");
+
+                    b.Property<short?>("UnitsInStock");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("ProductItems");
                 });
 
-            modelBuilder.Entity("OnlineStore.Core.Entities.ProductDetails", b =>
+            modelBuilder.Entity("OnlineStore.Core.Domain.Entities.ProductDetails", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -80,7 +88,7 @@ namespace OnlineStore.Persistance.Migrations
                     b.ToTable("ProductDetails");
                 });
 
-            modelBuilder.Entity("OnlineStore.Core.Entities.ProductReview", b =>
+            modelBuilder.Entity("OnlineStore.Core.Domain.Entities.ProductReview", b =>
                 {
                     b.Property<Guid>("Id");
 
@@ -93,17 +101,25 @@ namespace OnlineStore.Persistance.Migrations
                     b.ToTable("ProductReviews");
                 });
 
-            modelBuilder.Entity("OnlineStore.Core.Entities.ProductDetails", b =>
+            modelBuilder.Entity("OnlineStore.Core.Domain.Entities.Product", b =>
                 {
-                    b.HasOne("OnlineStore.Core.Entities.Product", "Product")
-                        .WithOne("ProductDetails")
-                        .HasForeignKey("OnlineStore.Core.Entities.ProductDetails", "ProductId")
+                    b.HasOne("OnlineStore.Core.Domain.Entities.Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("OnlineStore.Core.Entities.ProductReview", b =>
+            modelBuilder.Entity("OnlineStore.Core.Domain.Entities.ProductDetails", b =>
                 {
-                    b.HasOne("OnlineStore.Core.Entities.Product", "Product")
+                    b.HasOne("OnlineStore.Core.Domain.Entities.Product", "Product")
+                        .WithOne("ProductDetails")
+                        .HasForeignKey("OnlineStore.Core.Domain.Entities.ProductDetails", "ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("OnlineStore.Core.Domain.Entities.ProductReview", b =>
+                {
+                    b.HasOne("OnlineStore.Core.Domain.Entities.Product", "Product")
                         .WithMany("ProductReviews")
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade);

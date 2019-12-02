@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Exceptions.Test\**" />
+    <EmbeddedResource Remove="Exceptions.Test\**" />
+    <None Remove="Exceptions.Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="xunit" Version="2.4.0" />
@@ -16,10 +22,6 @@
   <ItemGroup>
     <ProjectReference Include="..\OnlineStore.Application\OnlineStore.Application.csproj" />
     <ProjectReference Include="..\OnlineStore.Core\OnlineStore.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Exceptions.Test\" />
   </ItemGroup>
 
 </Project>
