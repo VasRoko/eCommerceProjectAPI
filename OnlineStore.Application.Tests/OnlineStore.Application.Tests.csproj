@@ -18,4 +18,8 @@
     <ProjectReference Include="..\OnlineStore.Core\OnlineStore.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions.Test\" />
+  </ItemGroup>
+
 </Project>
