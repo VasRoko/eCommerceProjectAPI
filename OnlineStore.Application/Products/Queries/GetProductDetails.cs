@@ -1,22 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
+using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using OnlineStore.Application.Exceptions;
-using OnlineStore.Core.Domain.Entities;
+using OnlineStore.Domain.Entities.Product;
 using OnlineStore.Persistance;
 
 namespace OnlineStore.Application.Products.Queries
 {
     public class GetProductDetails
     {
-        public class  Query : IRequest<Product>
+        public class  Query : IRequest<Item>
         {
             public Guid Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Product>
+        public class Handler : IRequestHandler<Query, Item>
         {
             private readonly ProductsContext _context;
 
@@ -24,12 +23,12 @@ namespace OnlineStore.Application.Products.Queries
             {
                 _context = context;
             }
-            public async Task<Product> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Item> Handle(Query request, CancellationToken cancellationToken)
             {
-                var product = await _context.ProductItems.FindAsync(request.Id);
+                var product = await _context.Items.FindAsync(request.Id);
 
                 if (product == null)
-                    throw new NotFoundException(nameof(Product), request.Id);
+                    throw new NotFoundException(nameof(Item), request.Id);
 
                 return product;
             }

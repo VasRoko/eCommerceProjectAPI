@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using OnlineStore.Core.Domain.Entities;
 using System.Collections.Generic;
+using OnlineStore.Domain.Entities.Product;
 using OnlineStore.Application.Products.Queries;
 using OnlineStore.Application.Products.Commands;
 using System;
@@ -21,20 +21,20 @@ namespace OnlineStore.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Product>> All()
+        public async Task<IEnumerable<Item>> All()
         {
             return await _mediator.Send(new GetProducts.Query());
         }
 
         [HttpGet]
         [Route("category")]
-        public async Task<IEnumerable<Product>> Category([FromQuery]string name )
+        public async Task<IEnumerable<Item>> Category([FromQuery]string name )
         {
             return await _mediator.Send(new GetProductsByCategory.Query() { CategoryName = name });
         }
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetDetails(Guid id)
+        public async Task<ActionResult<Item>> GetDetails(Guid id)
         {
             return await _mediator.Send(new GetProductDetails.Query { Id = id });
         }
