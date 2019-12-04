@@ -1,24 +1,24 @@
 ﻿using System;
 using MediatR;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using OnlineStore.Persistance;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using OnlineStore.Core.Domain.Entities;
 using OnlineStore.Application.Exceptions;
+using OnlineStore.Domain.Entities.Product;
 
 namespace OnlineStore.Application.Products.Queries
 {
     public class GetProductsByCategory
     {
-        public class Query : IRequest<IEnumerable<Product>>
+        public class Query : IRequest<IEnumerable<Item>>
         {
             public string CategoryName { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, IEnumerable<Product>>
+        public class Handler : IRequestHandler<Query, IEnumerable<Item>>
         {
             private readonly ProductsContext _context;
 
@@ -27,14 +27,14 @@ namespace OnlineStore.Application.Products.Queries
                 _context = context;
             }
 
-            public async Task<IEnumerable<Product>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<Item>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var category = await _context.Categories.Where(c => c.Description == request.CategoryName).AsNoTracking().FirstOrDefaultAsync();
+                var category = await _context.Categoty.Where(c => c.Description == request.CategoryName).AsNoTracking().FirstOrDefaultAsync();
 
                 if (category == null)
                     throw new NotFoundException(nameof(Category), category.Id);
 
-                var products = _context.ProductItems.Where(p => p.CategoryId.Equals(category.Id)).AsNoTracking().ToList();
+                var products = _context.Items.Where(p => p.CategoryId.Equals(category.Id)).AsNoTracking().ToList();
                 
                 return products;
             }

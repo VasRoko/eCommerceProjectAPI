@@ -10,4 +10,8 @@
     <None Remove="Exceptions\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\Customer\" />
+  </ItemGroup>
+
 </Project>

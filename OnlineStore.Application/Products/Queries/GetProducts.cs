@@ -4,17 +4,17 @@ using System.Threading.Tasks;
 using OnlineStore.Persistance;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using OnlineStore.Core.Domain.Entities;
+using OnlineStore.Domain.Entities.Product;
 
 namespace OnlineStore.Application.Products.Queries
 {
     public class GetProducts
     {
-        public class Query : IRequest<IEnumerable<Product>>
+        public class Query : IRequest<IEnumerable<Item>>
         {
         }
 
-        public class Handler : IRequestHandler<Query, IEnumerable<Product>>
+        public class Handler : IRequestHandler<Query, IEnumerable<Item>>
         {
             private readonly ProductsContext _context;
 
@@ -23,9 +23,9 @@ namespace OnlineStore.Application.Products.Queries
                 _context = context;
             }
 
-            public async Task<IEnumerable<Product>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<Item>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.ProductItems.ToListAsync();
+                return await _context.Items.ToListAsync();
             }
         }
     }

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using OnlineStore.Application.Exceptions;
-using OnlineStore.Core.Domain.Entities;
+using OnlineStore.Domain.Entities.Product;
 using OnlineStore.Persistance;
 
 namespace OnlineStore.Application.Products.Commands
@@ -31,18 +29,14 @@ namespace OnlineStore.Application.Products.Commands
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var product = new Product
+                var product = new Item
                 {
-                    Id = new Guid(),
-                    Date = DateTime.Now,
-                    Title = request.Title,
-                    Price = request.Price,
-                    Description = request.Description,
+
                 };
 
                 try
                 {
-                    _context.ProductItems.Add(product);
+                    _context.Items.Add(product);
                     await _context.SaveChangesAsync();
 
                     return Unit.Value;
@@ -50,7 +44,7 @@ namespace OnlineStore.Application.Products.Commands
                 }
                 catch (Exception ex)
                 {
-                    throw new CreateFailureException(nameof(Product), product.Id, ex.Message);
+                    throw new CreateFailureException(nameof(Item), product.Id, ex.Message);
                 }
             }
         }

@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using OnlineStore.Application.Exceptions;
+using OnlineStore.Core.Domain.Entities;
 using OnlineStore.Persistance;
 using System;
 using System.Threading;
@@ -14,7 +15,6 @@ namespace OnlineStore.Application.Products.Commands
             public Guid Id { get; set; }
             public string Title { get; set; }
             public double? Price { get; set; }
-            public int? InStock { get; set; }
             public string Description { get; set; }
         }
 
@@ -30,7 +30,7 @@ namespace OnlineStore.Application.Products.Commands
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
                 var product = await _context.ProductItems.FindAsync(request.Id);
-
+                               
                 if (product == null)
                     throw new NotFoundException(nameof(product), product.Id);
 

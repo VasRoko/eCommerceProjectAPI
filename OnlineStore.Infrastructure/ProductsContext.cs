@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OnlineStore.Core.Domain.Entities;
+using OnlineStore.Domain.Entities.Product;
 
 namespace OnlineStore.Persistance
 {
@@ -8,22 +8,22 @@ namespace OnlineStore.Persistance
         public ProductsContext(DbContextOptions<ProductsContext> options) : base(options)
         {}
 
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Product> ProductItems { get; set; }
-        public DbSet<ProductDetails> ProductDetails { get; set; }
-        public DbSet<ProductReview> ProductReviews { get; set; }
+        public DbSet<Item> Items { get; set; }
+        public DbSet<Category> Categoty { get; set; }
+        public DbSet<Details> Details { get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>()
-                .HasOne(d => d.ProductDetails)
-                .WithOne(p => p.Product)
-                .HasForeignKey<ProductDetails>(k => k.ProductId)
+            modelBuilder.Entity<Item>()
+                .HasOne(d => d.Details)
+                .WithOne(p => p.Item)
+                .HasForeignKey<Details>(k => k.ItemId)
                 .IsRequired();
 
-            modelBuilder.Entity<ProductReview>()
-                .HasOne(p => p.Product)
-                .WithMany(r => r.ProductReviews)
+            modelBuilder.Entity<Review>()
+                .HasOne(p => p.Item)
+                .WithMany(r => r.Reviews)
                 .HasForeignKey(p => p.Id)
                 .IsRequired();
         }
