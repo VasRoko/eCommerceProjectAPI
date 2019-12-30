@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using OnlineStore.Application.Exceptions;
-using OnlineStore.Core.Domain.Entities;
-using OnlineStore.Persistance;
+using OnlineStore.Application.Interfaces;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,27 +19,23 @@ namespace OnlineStore.Application.Products.Commands
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly ProductsContext _context;
+            private readonly IOS_ProducsDbContext _context;
 
-            public Handler(ProductsContext context)
+            public Handler(IOS_ProducsDbContext context)
             {
                 _context = context;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var product = await _context.ProductItems.FindAsync(request.Id);
+                var product = await _context.Items.FindAsync(request.Id);
                                
                 if (product == null)
                     throw new NotFoundException(nameof(product), product.Id);
 
                 try
                 {
-                    product.Title = request.Title ?? product.Title;
-                    product.Price = request.Price ?? product.Price;
-                    product.Description = request.Description ?? product.Description;
-
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(cancellationToken);
                     
                     return Unit.Value;
                 } 

@@ -4,11 +4,11 @@ namespace OnlineStore.Persistance
 {
     public class Seed
     {
-        //public static void SeedCategory(ProductsContext context)
+        //public static void SeedCategory(IOnlineStoreContext context)
         //{
-        //    if(!context.Categories.Any())
+        //    if (!context.Categories.Any())
         //    {
-               
+
         //    }
         //}
 

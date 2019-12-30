@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using OnlineStore.Core.Domain.Entities;
 using OnlineStore.Application.Products.Categories.Queries;
+using OnlineStore.Domain.Entities.Product;
 
 namespace OnlineStore.API.Controllers
 {

@@ -1,9 +1,10 @@
-﻿using OnlineStore.Domain.Entities.Product;
+﻿using OnlineStore.Core.SharedKernel;
+using OnlineStore.Domain.Entities.Product;
 using System;
 
 namespace OnlineStore.Domain.Entities.Product
 {
-    public class Details
+    public class Details : BaseEntity
     {
         public string Size { get; set; }
         public string Weight { get; set; }

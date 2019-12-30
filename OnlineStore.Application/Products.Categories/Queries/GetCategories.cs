@@ -2,9 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using OnlineStore.Persistance;
-using Microsoft.EntityFrameworkCore;
-using OnlineStore.Core.Domain.Entities;
+using OnlineStore.Domain.Entities.Product;
+using OnlineStore.Application.Interfaces;
 
 namespace OnlineStore.Application.Products.Categories.Queries
 {
@@ -16,16 +15,16 @@ namespace OnlineStore.Application.Products.Categories.Queries
 
         public class Handler : IRequestHandler<Query, IEnumerable<Category>>
         {
-            private readonly ProductsContext _context;
+            private readonly IOS_ProducsDbContext _context;
 
-            public Handler(ProductsContext context)
+            public Handler(IOS_ProducsDbContext context)
             {
                 _context = context;
             }
 
             public async Task<IEnumerable<Category>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.Categories.ToListAsync();
+                return null;// await _context.Categoty.ToListAsync();
             }
         }
     }

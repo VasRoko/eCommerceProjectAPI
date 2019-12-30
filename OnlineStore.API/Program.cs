@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using OnlineStore.Persistance;
 
 namespace OnlineStore.API
 {
@@ -23,7 +22,7 @@ namespace OnlineStore.API
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<ProductsContext>();
+                    //var context = services.GetRequiredService<OnlineStore>();
                     // Seed.SeedProducts(context);
                 }
                 catch (Exception ex)

@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using OnlineStore.Persistance;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using OnlineStore.Domain.Entities.Product;
+using OnlineStore.Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace OnlineStore.Application.Products.Queries
 {
@@ -16,9 +16,9 @@ namespace OnlineStore.Application.Products.Queries
 
         public class Handler : IRequestHandler<Query, IEnumerable<Item>>
         {
-            private readonly ProductsContext _context;
+            private readonly IOS_ProducsDbContext _context;
 
-            public Handler(ProductsContext context)
+            public Handler(IOS_ProducsDbContext context)
             {
                 _context = context;
             }
