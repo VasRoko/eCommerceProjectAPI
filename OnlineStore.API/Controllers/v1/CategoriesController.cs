@@ -20,10 +20,9 @@ namespace OnlineStore.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<Category>> All()
+        public async Task<IEnumerable<Category>> Get(int currentTotal, int pageSize)
         {
-            return await _mediator.Send(new GetCategories.Query());
+            return await _mediator.Send(new GetCategories.Query{ CurrentTotal = currentTotal, PageSize = pageSize });
         }
     }
 }

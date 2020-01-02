@@ -10,7 +10,6 @@ namespace OnlineStore.Persistance
         public static IServiceCollection AddPersistanceLayer(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<OS_ProductsDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
             services.AddScoped<IOS_ProducsDbContext>(provider => provider.GetService<OS_ProductsDbContext>());
 
             return services; 
