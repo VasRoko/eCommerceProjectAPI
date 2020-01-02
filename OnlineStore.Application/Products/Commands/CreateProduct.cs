@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using OnlineStore.Application.Exceptions;
 using OnlineStore.Domain.Entities.Product;
-using OnlineStore.Persistance;
+using OnlineStore.Application.Interfaces;
 
 namespace OnlineStore.Application.Products.Commands
 {
@@ -20,9 +20,9 @@ namespace OnlineStore.Application.Products.Commands
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly ProductsContext _context;
+            private readonly IOS_ProducsDbContext _context;
 
-            public Handler(ProductsContext context)
+            public Handler(IOS_ProducsDbContext context)
             {
                 _context = context;
             }
@@ -37,7 +37,7 @@ namespace OnlineStore.Application.Products.Commands
                 try
                 {
                     _context.Items.Add(product);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(cancellationToken);
 
                     return Unit.Value;
 

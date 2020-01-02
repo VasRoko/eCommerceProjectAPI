@@ -1,8 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,18 +22,8 @@ namespace OnlineStore.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();       
-            services.AddDbContext<MainDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddDbContext<ProductsContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("ProductsConnection")));
-
-            // services.AddDefaultIdentity<IdentityUser>()
-               // .AddEntityFrameworkStores<MainDbContext>();
-
+            services.AddControllers();
+            services.AddPersistanceLayer(Configuration);
             services.AddCors(opts =>
             {
                 opts.AddPolicy(MyAllowSpecificOrigins, builder => {

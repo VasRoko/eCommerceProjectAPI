@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using OnlineStore.Core.Domain.Entities;
 using OnlineStore.Application.Products.Categories.Queries;
+using OnlineStore.Domain.Entities.Product;
 
 namespace OnlineStore.API.Controllers
 {
@@ -20,10 +20,9 @@ namespace OnlineStore.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<Category>> All()
+        public async Task<IEnumerable<Category>> Get(int currentTotal, int pageSize)
         {
-            return await _mediator.Send(new GetCategories.Query());
+            return await _mediator.Send(new GetCategories.Query{ CurrentTotal = currentTotal, PageSize = pageSize });
         }
     }
 }

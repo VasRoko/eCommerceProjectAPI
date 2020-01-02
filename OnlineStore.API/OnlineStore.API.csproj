@@ -12,5 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OnlineStore.Application\OnlineStore.Application.csproj" />
+    <ProjectReference Include="..\OnlineStore.Infrastructure\OnlineStore.Persistance.csproj" />
   </ItemGroup>
 </Project>
